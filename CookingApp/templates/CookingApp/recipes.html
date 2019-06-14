@@ -1,0 +1,34 @@
+{% extends 'base1.html' %}
+
+{% block content %}
+
+<table class="table">
+    <tr>
+        <th scope="col">Recipe</th>
+        <th scope="col">Description</th>
+        <th scope="col">Date</th>
+        <th scope="col">User</th>
+    </tr>
+
+{% for t in recipeData %}
+
+    <tr>
+        <td><a href="{% url 'recipedetails' id=t.id %}">{{t.recipeTitle}}</a></td>
+        <td>{{t.shortDescription}}</td>
+        <td>{{t.date}}</td>
+        <td>{{t.user}}</td>
+    </tr>
+{% endfor%}
+
+</table>
+
+<!-- recipeTitle = models.CharField(max_length = 100)
+    shortDescription = models.CharField(max_length = 255, default='SOME STRING')
+    ingredients = models.TextField()
+    description = models.TextField()
+    date = models.DateField()
+    user = models.ForeignKey(User, on_delete = models.DO_NOTHING) -->
+
+
+
+{% endblock %}

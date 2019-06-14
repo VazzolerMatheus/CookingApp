@@ -1,0 +1,65 @@
+{% extends 'base1.html' %}
+
+{% block content %}
+
+
+
+        <br>
+        <br>
+        <h2>{{recipeDetail.recipeTitle}}</h2>
+        <br>
+        <br>
+        <br>
+        
+        <p>{{recipeDetail.ingredients}}</p>
+        <br>
+        <br>
+        <p>{{recipeDetail.description}}</p>
+
+
+        <h3> Reviews </h3>
+
+        {% for t in recipeReview %}
+
+        <p><b>Username</b> {{t.user}}</p>
+        <p>{{t.title}}</p>
+        <p>{{t.description}}</p>
+        <p><b>Rating</b> {{t.rating}}</p>
+        <p><b>Date</b> {{t.date}}</p>
+       
+
+        <br>
+        <br>
+        <br>
+        <br>
+
+
+        {% endfor %}
+
+        <h2><a class="nav-link" href="{% url 'newreview' %}">Add your Review</a></h2>
+
+
+
+
+<!-- class Review(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete = models.DO_NOTHING)
+    title = models.CharField(max_length = 100)
+    description = models.CharField(max_length = 255)
+    rating = models.SmallIntegerField()
+    date = models.DateField()
+    user = models.ForeignKey(User, on_delete = models.DO_NOTHING) -->
+
+    
+
+
+
+<!-- recipeTitle = models.CharField(max_length = 100)
+    shortDescription = models.CharField(max_length = 255, default='SOME STRING')
+    ingredients = models.TextField()
+    description = models.TextField()
+    date = models.DateField()
+    user = models.ForeignKey(User, on_delete = models.DO_NOTHING) -->
+
+
+
+{% endblock %}
