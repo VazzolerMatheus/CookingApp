@@ -1,6 +1,8 @@
 from django.test import TestCase
 from .models import Recipe, Review
 from django.contrib.auth.models import User
+from .views import getRecipes, recipeDetails
+from django.urls import reverse
 # Create your tests here.
 
 
@@ -57,7 +59,41 @@ class ReviewTest(TestCase):
         self.assertEqual(str(self.reviewtest.title), "I love it")
     
     def test_description(self):
-        self.assertEqual(str(self.reviewtest.title), "Easy to make")
+        self.assertEqual(str(self.reviewtest.description), "Easy to make")
+
+
+
+class Index_test(TestCase):
+   def test_view_url_accessible_by_name(self):
+       response = self.client.get(reverse('index'))
+       self.assertEqual(response.status_code, 200)
+
+class getRecipes_test(TestCase):
+   def test_view_url_accessible_by_name(self):
+       response = self.client.get(reverse('recipes'))
+       self.assertEqual(response.status_code, 200)
+
+
+class recipeDetails_test(TestCase):
+    def setUp(self):
+        self.u1=User.objects.create(username='myuser1')
+        self.u2=User.objects.create(username='myuser2')
+        self.u3=User.objects.create(username='myuser3')
+        self.recipe = Recipe.objects.create(recipeTitle="Pasta", shortDescription="A very good easy pasta recipe", ingredients="pasta, water", description="Bla bla bla bla", date="2019-04-04", user=self.u1)
+        self.rev1=Review.objects.create(recipe=self.recipe, title="I love it1", description="Easy to make", rating="5", date="2019-04-04",user=self.u2)
+        self.rev1=Review.objects.create(recipe=self.recipe, title="I love it2", description="Easy to make", rating="5", date="2019-04-04",user=self.u3)
+
+    def test_recipeDetails_test_success(self):
+        response = self.client.get(reverse('recipedetails', args=(self.recipe.id,)))
+        self.assertEqual(response.status_code, 200)
+
+
+
+
+
+
+
+
 
 # class Recipe(models.Model):
 #     recipeTitle = models.CharField(max_length = 100)
